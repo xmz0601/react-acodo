@@ -1,3 +1,7 @@
+A responsive online shopping mall project with React and Bootstrap.
+
+Haven't been finished......
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

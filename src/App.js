@@ -1,9 +1,17 @@
 import React from 'react'
-import { Button } from 'antd'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+
+import Login from './pages/login/login.jsx'
 
 class App extends React.Component {
   render() {
-    return <div>this is root component<Button type="primary">Button</Button></div>
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login} />
+        </Switch>
+      </BrowserRouter>
+    )
   }
 }
 

@@ -1,0 +1,55 @@
+html, body, #root, .row {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    height: 100%;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+button, input {
+    outline: none;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+
+html {
+    font-size: 1rem;
+}
+@media (min-width: 576px) {
+    html {
+        font-size: 1.25rem;
+    }
+}
+@media (min-width: 768px) {
+    html {
+        font-size: 1.5rem;
+    }
+}
+@media (min-width: 992px) {
+    html {
+        font-size: 1.75rem;
+    }
+}
+@media (min-width: 1200px) {
+    html {
+        font-size: 2rem;
+    }
+}

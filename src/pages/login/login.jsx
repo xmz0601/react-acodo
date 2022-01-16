@@ -20,7 +20,7 @@ class Login extends Component {
 
 	onFinish = async (values) => {
     // console.log(values)
-    const res = await this.sendAjaxReq('/clogin', values, 'post')
+    const res = await this.sendAjaxReq('clogin', values, 'post')
     if (res.meta.status === 200) {
       console.log(res.data)
       message.success('log in successfully')
@@ -37,7 +37,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container login-outer-box">
         <div className="row no-gutters">
           <div className="col-md-4 sidebar d-flex align-items-center justify-content-center">
             <h4 className="logo">

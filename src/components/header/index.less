@@ -1,0 +1,104 @@
+.header-outer-box {
+  padding: 0 !important;
+  margin-top: 30px;
+  .upper-row {
+    .logo {
+      font-size: 40px;
+      font-weight: 600;
+      padding: 0;
+      a {
+        color: #3b135a;
+      }
+    }
+    .search-box {
+      input {
+        width: 85%;
+        height: 38px;
+        border: 2px solid #3b135a;
+        border-radius: 8px 0 0 8px;
+        margin-top: 12px;
+      }
+      button {
+        position: absolute;
+        top: 17px;
+        height: 38px;
+        border: 0;
+        font-size: 20px;
+        color: #fff;
+        background-color: #3b135a;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        padding: 0 10px 0 10px;
+        margin-top: -5px;
+      }
+    }
+    .cart-box {
+      padding: 0;
+    }
+    .btns {
+      border-radius: 8px;
+      padding: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 12px;
+      text-align: center;
+    }
+    .login-btn, .register-btn {
+      background-color: #3b135a;
+      color: #fff;
+      border: 2px solid #3b135a;
+    }
+    .login-btn {
+      width: 60%;
+    }
+    .register-btn {
+      width: 85%;
+    }
+    .mycart, .logout-btn {
+      color: #3b135a;
+      border: 2px solid #3b135a;
+    }
+    .mycart {
+      font-size: 14px;
+      padding: 7px 0;
+      .anticon-shopping-cart {
+        font-size: 18px;
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .top-menu {
+    font-size: 16px;
+    text-align: center;
+    color: #3b135a;
+    margin-top: 15px;
+    .top-menu-item {
+      padding: 7px 0;
+      cursor: pointer;
+      .top-menu-inner {
+        border-right: 2px solid #dae0e5;
+        .anticon-down {
+          vertical-align: middle;
+        }
+      }
+    }
+    .top-menu-item:hover {
+      background-color: #3b135a;
+      color: #fff;
+      .top-menu-inner {
+        border-right: #3b135a;
+      }
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .mycart {
+      width: 70%;
+    }
+    .logout-btn {
+      width: 70%;
+    }
+  }
+}

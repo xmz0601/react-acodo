@@ -6,6 +6,9 @@ html, body, #root, .row {
 .container {
     height: 100%;
 }
+.container-fluid {
+    padding: 0;
+}
 * {
     margin: 0;
     padding: 0;

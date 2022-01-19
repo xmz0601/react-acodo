@@ -1,6 +1,4 @@
-A responsive online shopping mall project with React and Bootstrap.
-
-Haven't been finished......
+This is a responsive online shopping mall project with React and Bootstrap, as well as an ongoing project.
 
 # Getting Started with Create React App
 

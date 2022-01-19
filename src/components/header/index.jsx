@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './index.less'
 import { message, Menu, Dropdown } from 'antd'
 import { SearchOutlined, ShoppingCartOutlined, DownOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 const { SubMenu } = Menu
 
@@ -21,14 +21,9 @@ class Header extends Component {
     }
   }
 
-  selectCateOne = (e) => {
-    console.log(e)
-    // e.key is the t1 _id
-  }
-
-  selectCateTwo = (e) => {
-    console.log(e)
-    // e.key is the  _id
+  selectCate = (e) => {
+    // console.log(e)
+    this.props.history.push('/list/' + e.key + '/1')
   }
 
   componentDidMount() {
@@ -37,10 +32,10 @@ class Header extends Component {
 
   render() {
     const menu = (
-      <Menu onClick={this.selectCateTwo}>
+      <Menu onClick={this.selectCate}>
         {this.state.cateList.map((item1) => {
           return (
-            <SubMenu title={item1.cate_name} key={item1._id} onTitleClick={this.selectCateOne}>
+            <SubMenu title={item1.cate_name} key={item1._id} onTitleClick={this.selectCate}>
               {item1.children.map((item2) => {
                 return <Menu.Item key={item2._id}>{item2.cate_name}</Menu.Item>
               })}
@@ -103,4 +98,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default withRouter(Header)

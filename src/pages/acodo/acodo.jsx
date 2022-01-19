@@ -6,6 +6,7 @@ import Header from '../../components/header/index.jsx'
 import Footer from '../../components/footer/index.jsx'
 
 import Home from '../home/home.jsx'
+import List from '../list/list.jsx'
 
 class Acodo extends Component {
   render() {
@@ -18,7 +19,8 @@ class Acodo extends Component {
         <div className="content-box">
           <Switch>
             <Route path="/home" component={Home} />
-            <Redirect to='/home' />
+            <Route path="/list/:cid/:page" component={List} />
+            <Redirect to="/home" />
           </Switch>
         </div>
 

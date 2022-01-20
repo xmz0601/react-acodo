@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import './list.less'
 import ListItem from '../../components/list-item/index.jsx'
 import { Pagination, Breadcrumb } from 'antd'
 
-class List extends Component {
+class Search extends Component {
   state = {
     queryInfo: {},
     total: 0,
     goodsList: [],
-    catesInfo: [],
     currentPage: 1
   }
 
@@ -29,58 +27,35 @@ class List extends Component {
     }
   }
 
-  getCatesInfo = async () => {
-    // console.log(this.props.match.params.cid)
-    let newArr = []
-    const res = await this.sendAjaxReq('categories/' + this.props.match.params.cid, {}, 'get')
-    if (res.meta.status === 200) {
-      newArr.push(res.data.cate_name)
-      if(res.data.cate_level === 1) {
-        // get parent cate
-        const res1 = await this.sendAjaxReq('categories/' + res.data.cate_pid, {}, 'get')
-        newArr.push(res1.data.cate_name)
-      }
-      // console.log(newArr)
-      this.setState({
-        catesInfo: newArr.reverse()
-      })
-    } else {
-      this.setState({
-        catesInfo: []
-      })
-    }
-  }
-
   changePage = (page) => {
     // console.log(this.props)
-    this.props.history.push('/list/' + this.props.match.params.cid + '/' + page)
+    this.props.history.push('/search/' + this.props.match.params.key + '/' + page)
     this.setState({ currentPage: page })
   }
 
   componentDidMount() {
     this.setState({
       queryInfo: {
-        query: '',
-        cid: this.props.match.params.cid,
+        query: this.props.match.params.key,
+        cid: '',
         pagenum: parseInt(this.props.match.params.page),
         pagesize: 12
       }
     }, function() {
       this.getGoodsList()
-      this.getCatesInfo()
       this.setState({ currentPage: parseInt(this.props.match.params.page) })
     })
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     // 'this' is forbidden in this function
-    const newCid = nextProps.match.params.cid
+    const newKey = nextProps.match.params.key
     const newPage = parseInt(nextProps.match.params.page)
-    if (newCid !== prevState.queryInfo.cid || newPage !== prevState.queryInfo.pagenum) {
+    if (newKey !== prevState.queryInfo.query || newPage !== prevState.queryInfo.pagenum) {
       return {
         queryInfo: {
-          query: '',
-          cid: newCid,
+          query: newKey,
+          cid: '',
           pagenum: newPage,
           pagesize: 12  
         }
@@ -90,9 +65,8 @@ class List extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.queryInfo.cid !== prevState.queryInfo.cid || this.state.queryInfo.pagenum !== prevState.queryInfo.pagenum) {
+    if (this.state.queryInfo.query !== prevState.queryInfo.query || this.state.queryInfo.pagenum !== prevState.queryInfo.pagenum) {
       this.getGoodsList()
-      this.getCatesInfo()
       this.setState({ currentPage: this.state.queryInfo.pagenum })
     }
   }
@@ -102,14 +76,8 @@ class List extends Component {
       <div className="container list-outer-box">
         <div className="row breadcrumb-box">
           <Breadcrumb separator=">">
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            {
-              this.state.catesInfo.map((item, ind) => {
-                return (
-                  <Breadcrumb.Item key={ind}>{item}</Breadcrumb.Item>
-                )
-              })
-            }
+            <Breadcrumb.Item>Search results</Breadcrumb.Item>
+            <Breadcrumb.Item>{this.state.queryInfo.query}</Breadcrumb.Item>
           </Breadcrumb>
         </div>
         <div className="row list-box">
@@ -129,4 +97,4 @@ class List extends Component {
   }
 }
 
-export default List
+export default Search

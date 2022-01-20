@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './index.less'
-import { message, Menu, Dropdown } from 'antd'
+import { message, Menu, Dropdown, Input } from 'antd'
 import { SearchOutlined, ShoppingCartOutlined, DownOutlined } from '@ant-design/icons'
 import { Link, withRouter } from 'react-router-dom'
 
@@ -8,7 +8,8 @@ const { SubMenu } = Menu
 
 class Header extends Component {
   state = {
-    cateList: []
+    cateList: [],
+    keywords: ''
   }
 
   getCateList = async () => {
@@ -24,6 +25,20 @@ class Header extends Component {
   selectCate = (e) => {
     // console.log(e)
     this.props.history.push('/list/' + e.key + '/1')
+  }
+
+  handleChange = (e) => {
+    // console.log(e.target.value)
+    this.setState({
+      keywords: e.target.value
+    })
+  }
+
+  searchGoods = () => {
+    this.props.history.push('/search/' + this.state.keywords + '/1')
+    this.setState({
+      keywords: ''
+    })
   }
 
   componentDidMount() {
@@ -52,8 +67,8 @@ class Header extends Component {
             <Link to="/home">acodo</Link>
           </div>
           <div className="col-md-4 search-box">
-            <input type="text" />
-            <button><SearchOutlined /></button>
+            <Input placeholder="Find a product" value={this.state.keywords} onChange={this.handleChange} onPressEnter={this.searchGoods} />
+            <button onClick={this.searchGoods}><SearchOutlined /></button>
           </div>
           <div className="col-md-2 offset-2 cart-box">
             {/* <div className="btns login-btn">Log in</div> */}

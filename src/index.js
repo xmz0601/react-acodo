@@ -25,4 +25,19 @@ axios.interceptors.response.use(config => {
 
 React.Component.prototype.sendAjaxReq = sendAjaxReq
 
+// set filters
+React.Component.prototype.weightFilter = (val) => {
+  if (val >= 1000) return val/1000 + 'kg'
+  return val + 'g'
+}
+React.Component.prototype.priceFilter = (val) => {
+  const arr = (val + '').split('.')
+  if (arr[1]) {
+    if (arr[1].length === 1) return '￡' + val + '0'
+    if (arr[1].length === 2) return '￡' + val
+    return '￡' + val.toFixed(2)
+  }
+  return '￡' + val + '.00'
+}
+
 ReactDOM.render(<App />, document.getElementById('root'))

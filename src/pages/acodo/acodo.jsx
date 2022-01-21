@@ -8,6 +8,7 @@ import Footer from '../../components/footer/index.jsx'
 import Home from '../home/home.jsx'
 import List from '../list/list.jsx'
 import Search from '../search/search.jsx'
+import Detail from '../detail/detail.jsx'
 
 class Acodo extends Component {
   render() {
@@ -22,6 +23,7 @@ class Acodo extends Component {
             <Route path="/home" component={Home} />
             <Route path="/list/:cid/:page" component={List} />
             <Route path="/search/:key/:page" component={Search} />
+            <Route path="/detail/:gid" component={Detail} />
             <Redirect to="/home" />
           </Switch>
         </div>

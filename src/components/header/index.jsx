@@ -70,7 +70,7 @@ class Header extends Component {
             <Input placeholder="Find a product" value={this.state.keywords} onChange={this.handleChange} onPressEnter={this.searchGoods} />
             <button onClick={this.searchGoods}><SearchOutlined /></button>
           </div>
-          <div className="col-md-2 offset-2 cart-box">
+          <div className="col-md-2 offset-md-2 cart-box">
             {/* <div className="btns login-btn">Log in</div> */}
             <div className="btns mycart">
               <ShoppingCartOutlined /> | <span>￡0.00</span>

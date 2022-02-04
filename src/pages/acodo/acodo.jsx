@@ -9,6 +9,7 @@ import Home from '../home/home.jsx'
 import List from '../list/list.jsx'
 import Search from '../search/search.jsx'
 import Detail from '../detail/detail.jsx'
+import Cart from '../cart/cart'
 
 class Acodo extends Component {
   render() {
@@ -24,6 +25,7 @@ class Acodo extends Component {
             <Route path="/list/:cid/:page" component={List} />
             <Route path="/search/:key/:page" component={Search} />
             <Route path="/detail/:gid" component={Detail} />
+            <Route path="/cart" component={Cart} />
             <Redirect to="/home" />
           </Switch>
         </div>

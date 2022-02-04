@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 // import 'antd/dist/antd.min.css'
 import './assets/bootstrap/css/bootstrap.min.css'
 import './assets/css/global.css'
@@ -39,5 +41,23 @@ React.Component.prototype.priceFilter = (val) => {
   }
   return '￡' + val + '.00'
 }
+React.Component.prototype.showCartNum = (arr) => {
+  let total = 0
+  arr.forEach((ele) => {
+    total += ele.goodsNum
+  })
+  return total
+}
+React.Component.prototype.showTotalPrice = (arr) => {
+  let total = 0
+  arr.forEach((ele) => {
+    total += ele.goodsNum * ele.cart_item.price
+  })
+  return total
+}
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render((
+  <Provider store={store}>
+    <App />
+  </Provider>
+), document.getElementById('root'))

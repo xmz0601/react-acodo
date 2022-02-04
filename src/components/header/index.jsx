@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import './index.less'
-import { message, Menu, Dropdown, Input } from 'antd'
-import { SearchOutlined, ShoppingCartOutlined, DownOutlined } from '@ant-design/icons'
+import { message, Menu, Dropdown, Input, Modal, Badge } from 'antd'
+import { SearchOutlined, ShoppingCartOutlined, DownOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { resetUser } from '../../redux/actions'
 
 const { SubMenu } = Menu
 
@@ -35,9 +37,44 @@ class Header extends Component {
   }
 
   searchGoods = () => {
-    this.props.history.push('/search/' + this.state.keywords + '/1')
-    this.setState({
-      keywords: ''
+    if (!this.state.keywords.trim()) {
+      this.setState({
+        keywords: ''
+      })
+    } else {
+      this.props.history.push('/search/' + this.state.keywords + '/1')
+      this.setState({
+        keywords: ''
+      })  
+    }
+  }
+
+  goLoginPage = () => {
+    this.props.history.push('/login')
+  }
+
+  goRegisterPage = () => {
+    this.props.history.push('/register')
+  }
+
+  goCartPage = () => {
+    this.props.history.push('/cart')
+  }
+
+  logout = () => {
+    Modal.confirm({
+      title: 'Are you sure you want to log out?',
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Yes',
+      cancelText: 'Cancel',
+      centered: true,
+      onOk: () => {
+        window.sessionStorage.clear()
+        this.props.resetUser()
+        if (this.props.location.pathname !== '/home') {
+          this.props.history.push('/home')
+        }
+      }
     })
   }
 
@@ -60,6 +97,8 @@ class Header extends Component {
       </Menu>
     )
 
+    let hasLogined = this.props.user.username ? true : false
+
     return (
       <div className="container header-outer-box">
         <div className="row upper-row">
@@ -71,14 +110,26 @@ class Header extends Component {
             <button onClick={this.searchGoods}><SearchOutlined /></button>
           </div>
           <div className="col-md-2 offset-md-2 cart-box">
-            {/* <div className="btns login-btn">Log in</div> */}
-            <div className="btns mycart">
-              <ShoppingCartOutlined /> | <span>￡0.00</span>
-            </div>
+            {
+              hasLogined ? (
+                <div className="btns mycart" onClick={this.goCartPage}>
+                  <Badge count={this.showCartNum(this.props.user.cart)} color="#3b135a" showZero size="small" offset={[-5, 1]}>
+                    <ShoppingCartOutlined />
+                  </Badge> | <span>{this.priceFilter(this.showTotalPrice(this.props.user.cart))}</span>
+                </div>
+              ) : (
+                <div className="btns login-btn" onClick={this.goLoginPage}>Log in</div>
+              )
+            }
           </div>
           <div className="col-md-2">
-            {/* <div className="btns register-btn">Register</div> */}
-            <div className="btns logout-btn">Log out</div>
+            {
+              hasLogined ? (
+                <div className="btns logout-btn" onClick={this.logout}>Log out</div>
+              ) : (
+                <div className="btns register-btn" onClick={this.goRegisterPage}>Register</div>
+              )
+            }
           </div>
         </div>
         <div className="row no-gutters top-menu">
@@ -113,4 +164,7 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header)
+export default connect(
+  state => ({ user: state.user }),
+  { resetUser }
+)(withRouter(Header))

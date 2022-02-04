@@ -3,6 +3,8 @@ import './login.less'
 import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { withRouter, Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { receiveUser } from '../../redux/actions'
 
 class Login extends Component {
   validatePwd = (rule, value) => {
@@ -22,12 +24,13 @@ class Login extends Component {
     // console.log(values)
     const res = await this.sendAjaxReq('clogin', values, 'post')
     if (res.meta.status === 200) {
-      console.log(res.data)
+      // console.log(res.data)
+      // console.log(this.props)
       message.success('log in successfully')
       // save user info to sessionStorage
       window.sessionStorage.setItem('token', res.data.token)
       // save user info to redux
-      // this.$store.commit('saveUserInfo', res.data)
+      this.props.receiveUser(res.data)
       // redirect
       this.props.history.push('/home')
     } else {
@@ -91,4 +94,7 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login)
+export default connect(
+  () => ({}),
+  { receiveUser }
+)(withRouter(Login))
